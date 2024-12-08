@@ -1,0 +1,40 @@
+def main():
+    # Ввод товаров и цен
+    products = {}
+    stores = {}
+
+    # Ввод товаров
+    num_products = int(input("Введите количество товаров: "))
+    for _ in range(num_products):
+        product_name = input("Введите название товара: ")
+        products[product_name] = {}
+
+    # Ввод цен в магазинах
+    num_stores = int(input("Введите количество магазинов: "))
+    for _ in range(num_stores):
+        store_name = input("Введите название магазина: ")
+        for product in products.keys():
+            price = float(input(f"Введите цену товара '{product}' в магазине '{store_name}': "))
+            products[product][store_name] = price
+
+    # Подсчет общей стоимости покупок в каждом магазине
+    total_costs = {}
+    for product, prices in products.items():
+        for store, price in prices.items():
+            if store not in total_costs:
+                total_costs[store] = 0
+            total_costs[store] += price
+
+    # Вывод результатов
+    print("\nОбщая стоимость покупок в каждом магазине:")
+    for store, total in total_costs.items():
+        print(f"{store}: {total:.2f} руб.")
+
+    # Определение магазина с наименьшей стоимостью
+    min_cost = min(total_costs.values())
+    best_store = [store for store, total in total_costs.items() if total == min_cost]
+
+    print(f"\nЛучший магазин для покупок: {best_store[0]} с общей стоимостью {min_cost:.2f} руб.")
+
+if __name__ == "__main__":
+    main()
